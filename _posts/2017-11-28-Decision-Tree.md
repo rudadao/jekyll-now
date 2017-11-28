@@ -1,6 +1,6 @@
 ---
 layout: post
-title： 决策树
+title: 决策树
 ---
 
 # 决策树
