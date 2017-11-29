@@ -24,7 +24,7 @@ title: 决策树
 >11.   **if** $D_v$为空 **then**
 >12.    将分支结点标记为叶结点，其类别标记为D中样本最多的类； **return**
 >13.   **else**
->14.    以$TreeGenerate(D_v,A\\{a_x\})为分支结点
+>14.    以$TreeGenerate(D_v,A\\{a_x\})$为分支结点
 >15. **endif**
 >14. **endfor**
 
