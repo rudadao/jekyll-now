@@ -40,26 +40,26 @@ title: 决策树
    结点尽可能属于同一类别（结点“纯度”）
 ### 1.2.1 信息增益
 #### 1.信息熵（Information entropy）
-   信息熵（Information entropy）是度量样本纯度的指标。
-   $X$是一个取有限个值的离散随机变量，其概率分布为：$P(X=x_i)=p_i, i=1,2,...,N$,则离散变量$X=x_i$的自信息量为：
-   $$I(x_i)=-logp_i$$
-   信息熵为自信息量的期望，即
-   $$Ent(X)=E[I(x_i)]=-/sum_{i=1}^{N}p_ilogp_i$$
-   信息熵的性质：
-   1. 非负性：$Ent(X)\ge0$ 
-   2. 最大离散熵定理： $Ent(X)\lelogN$(当$p_i=1/N时，熵最大)
+ 信息熵（Information entropy）是度量样本纯度的指标。
+ 
+ $X$是一个取有限个值的离散随机变量，其概率分布为：$P(X=x_i)=p_i, i=1,2,...,N$,则离散变量$X=x_i$的自信息量为：
+ $$I(x_i)=-logp_i$$
+	信息熵为自信息量的期望，即:
+	$$Ent(X)=E[I(x_i)]=-\sum_{i=1}^{N}p_ilogp_i$$
+	信息熵的性质：
+  1. 非负性：$Ent(X)\ge0$ 
+  2. 最大离散熵定理： $Ent(X)\lelogN$(当$p_i=1/N时，熵最大)
 #### 2.信息增益
-   样本$D$集合中第$k$类样本所占比例为$p_k(k=1,2,...,|/gamma|)$，
-   则样本$D$的信息熵为：
-   $$Ent(D)=-/sum_{k=1}^{|/gamma|}p_klogp_k$$
-   假定离散属性$a$有$V$个可能取值$\{a^1,a^2,...,a^V\}$,则用$a$划分$D$产生$V$个分支，其中第$v$个分支结点，属性a的取值为$a^v，为已知属性$a$时的条件信息熵为：
-   $$Ent(D|a)=-/sum_{i=1}^{M}/sum_{v=1}^{V}p(D=d_i,A=a_v)logp(D=d_i|A=a_v)$$
-   已知属性$a=a_v$的条件信息熵为：
-   $$Ent(D|a=a_v)=-/sum_{i=1}^{M}/sum_{v=1}^{V}p(D=d_i|A=a_v)logp(D=d_i|A=a_v)$$
-   则信息增益为：
-   $$Gain(D|a)=Ent(D)-Ent(D|a)=Ent(D)-/sum_{v=1}^{V}P(a=a_v)Ent(D|a=a_v)$$
-   $P(a=a_v)$为第v个分支点权重，设$D_v$第$v$个分支点的样本数量，则：
-   $$ P(a=a_v)=/frac{|D_v|}{|D|}$$
-   $$Ent(D|a=a_v)=Ent(D_v)$$
-   $$Gain(D|a)=Ent(D)-/sum_{v=1}^{V}/frac{|D_v|}{|D|}Ent(D_v)
+   样本$D$集合中第$k$类样本所占比例为$p_k(k=1,2,...,|\gamma|)$，则样本$D$的信息熵为：   
+			$$Ent(D)=-\sum_{k=1}^{|\gamma|}p_klogp_k$$  
+   假定离散属性$a$有$V$个可能取值$\{a^1,a^2,...,a^V\}$,则用$a$划分$D$产生$V$个分支，其中第$v$个分支结点，属性a的取值为$a^v，为已知属性$a$时的条件信息熵为：  
+   $$Ent(D|a)=-\sum_{i=1}^{M}\sum_{v=1}^{V}p(D=d_i,A=a_v)logp(D=d_i|A=a_v)$$  
+   已知属性$a=a_v$的条件信息熵为：   
+   $$Ent(D|a=a_v)=-\sum_{i=1}^{M}\sum_{v=1}^{V}p(D=d_i|A=a_v)logp(D=d_i|A=a_v)$$  
+   则信息增益为：  
+   $$Gain(D|a)=Ent(D)-Ent(D|a)=Ent(D)-\sum_{v=1}^{V}P(a=a_v)Ent(D|a=a_v)$$  
+   $P(a=a_v)$为第v个分支点权重，设$D_v$第$v$个分支点的样本数量，则：  
+   $$ P(a=a_v)=/frac{|D_v|}{|D|}$$  
+   $$Ent(D|a=a_v)=Ent(D_v)$$  
+   $$Gain(D|a)=Ent(D)-\sum_{v=1}^{V}\frac{|D_v|}{|D|}Ent(D_v)$$  
  http://www.mohu.org/info/symbols/symbols.htm
