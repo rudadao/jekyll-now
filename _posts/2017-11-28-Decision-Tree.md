@@ -11,18 +11,18 @@ title: 决策树
    决策树是一个if-then规则集合。
 
 * 输入:
-   - 训练集:$D=\{(x_1,y_1),(x_2,y_2)...,(x_M,y_M)\}$
-   - 属性集:$A=\{a_1,a_2,...,a_N\}$
-* 输出：以node为结点的一棵决策树
-* 过程：函数$TreeGenerate(D,A)$
->1. 生成结点node；
->2. **if** $D$中样本属于同一类别$C$ **then**
->3. 将node标记为$C$类的叶结点；**return**
->4. **endif**
->5. **if** $A=\emptyset$ **OR** $D$中的样本点在A中取值相同 **then**
->6.  将node标记为叶结点，类型为$D$中样本最多的类型；**return**
->7. **endif**
->8. 将A中选择最优划分属性$a_x$
+   - 训练集:$D=\{(x_1,y_1),(x_2,y_2)...,(x_M,y_M)\}$   
+   - 属性集:$A=\{a_1,a_2,...,a_N\}$  
+* 输出：以node为结点的一棵决策树   
+* 过程：函数$TreeGenerate(D,A)$   
+>1. 生成结点node；  
+>2. **if** $D$中样本属于同一类别$C$ **then**  
+>3. 将node标记为$C$类的叶结点；**return**  
+>4. **endif**  
+>5. **if** $A=\emptyset$ **OR** $D$中的样本点在A中取值相同 **then**  
+>6.  将node标记为叶结点，类型为$D$中样本最多的类型；**return**  
+>7. **endif**   
+>8. 将A中选择最优划分属性$a_x$  
 >9. **for** $a_x$中每一个值$a^v_x$ **do**
 >10.  为node生成一个分支，令$D_v$表示在$a_x$上取值为$a^v_x$的样本子集；
 >11.   **if** $D_v$为空 **then**
@@ -51,17 +51,22 @@ $$Ent(X)=E[I(x_i)]=-\sum_{i=1}^{N}p_ilogp_i$$
   2. 最大离散熵定理： $Ent(X)\lelogN$(当$p_i=1/N时，熵最大) 
 #### 2.信息增益   
 样本$D$集合中第$k$类样本所占比例为$p_k(k=1,2,...,|\gamma|)$，则样本$D$的信息熵为：   
-$$Ent(D)=-\sum_{k=1}^{|\gamma|}p_klogp_k$$  
+              $$Ent(D)=-\sum_{k=1}^{|\gamma|}p_klog p_k$$  
 假定离散属性$a$有$V$个可能取值$\{a^1,a^2,...,a^V\}$,则用$a$划分$D$产生$V$个分支，其中第$v$个分支结点，属性a的取值为$a^v，则已知属性$a$时的条件信息熵为：  
-$$Ent(D|a)=-\sum_{i=1}^{M}\sum_{v=1}^{V}p(D=d_i,A=a_v)logp(D=d_i|A=a_v)$$ 
+              $$Ent(D|a)=-\sum_{i=1}^{M}\sum_{v=1}^{V}p(D=d_i,A=a_v)logp(D=d_i|A=a_v)$$ 
 已知属性$a=a_v$的条件信息熵为：   
-$$Ent(D|a=a_v)=-\sum_{i=1}^{M}\sum_{v=1}^{V}p(D=d_i|A=a_v)logp(D=d_i|A=a_v)$$  
+              $$Ent(D|a=a_v)=-\sum_{i=1}^{M}\sum_{v=1}^{V}p(D=d_i|A=a_v)logp(D=d_i|A=a_v)$$  
 则信息增益为：  
-$$Gain(D|a)=Ent(D)-Ent(D|a)=Ent(D)-\sum_{v=1}^{V}P(a=a_v)Ent(D|a=a_v)$$  
+              $$Gain(D|a)=Ent(D)-Ent(D|a)=Ent(D)-\sum_{v=1}^{V}P(a=a_v)Ent(D|a=a_v)$$  
 $P(a=a_v)$为第v个分支点权重，设$D_v$第$v$个分支点的样本数量，则：  
-$$ P(a=a_v)=/frac{|D_v|}{|D|}$$  
-$$Ent(D|a=a_v)=Ent(D_v)$$  
-$$Gain(D|a)=Ent(D)-\sum_{v=1}^{V}\frac{|D_v|}{|D|}Ent(D_v)$$ 
-ID3（Irerative Dichotomiser）算法以信息增益为准则划分属性，即：
-$$a_x=arg\underset{max}{a\inA} Gain(D,a)$$
+              $$ P(a=a_v)=/frac{|D_v|}{|D|}$$  
+              $$Ent(D|a=a_v)=Ent(D_v)$$  
+              $$Gain(D|a)=Ent(D)-\sum_{v=1}^{V}\frac{|D_v|}{|D|}Ent(D_v)$$     
+**ID3（Irerative Dichotomiser）算法**以信息增益为准则划分属性，即：
+              $$a_x=arg\underset{max}{a\inA} Gain(D,a)$$
+缺点：信息增益对可取值数目较多的属性有所偏好，易发生过拟合。   
+
+#### 1.2.2 增益率   
+**C4.5决策树算法**为减少信息增益偏好的影响，使用增益率来选择最优划分属性，增益率定义为：
+$$Gain_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}$$
  http://www.mohu.org/info/symbols/symbols.htm
