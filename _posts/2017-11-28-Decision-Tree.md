@@ -48,25 +48,39 @@ $$I(x_i)=-logp_i$$
 $$Ent(X)=E[I(x_i)]=-\sum_{i=1}^{N}p_ilogp_i$$  
 信息熵的性质： 
   1. 非负性：$Ent(X)\ge0$  
-  2. 最大离散熵定理： $Ent(X)\lelogN$(当$p_i=1/N时，熵最大) 
+  2. 最大离散熵定理： $Ent(X)\leq logN$(当$p_i=1/N时，熵最大) 
 #### 2.信息增益   
 样本$D$集合中第$k$类样本所占比例为$p_k(k=1,2,...,|\gamma|)$，则样本$D$的信息熵为：   
               $$Ent(D)=-\sum_{k=1}^{|\gamma|}p_klog p_k$$  
 假定离散属性$a$有$V$个可能取值$\{a^1,a^2,...,a^V\}$,则用$a$划分$D$产生$V$个分支，其中第$v$个分支结点，属性a的取值为$a^v，则已知属性$a$时的条件信息熵为：  
-              $$Ent(D|a)=-\sum_{i=1}^{M}\sum_{v=1}^{V}p(D=d_i,A=a_v)logp(D=d_i|A=a_v)$$ 
+              $$Ent(D|a)=-\sum_{i=1}^{M}\sum_{v=1}^{V}p(D=d_i,a=a_v)logp(D=d_i|a=a_v)$$   
 已知属性$a=a_v$的条件信息熵为：   
-              $$Ent(D|a=a_v)=-\sum_{i=1}^{M}\sum_{v=1}^{V}p(D=d_i|A=a_v)logp(D=d_i|A=a_v)$$  
+              $$Ent(D|a=a_v)=-\sum_{i=1}^{M}p(D=d_i|a=a_v)logp(D=d_i|a=a_v)$$   
 则信息增益为：  
-              $$Gain(D|a)=Ent(D)-Ent(D|a)=Ent(D)-\sum_{v=1}^{V}P(a=a_v)Ent(D|a=a_v)$$  
-$P(a=a_v)$为第v个分支点权重，设$D_v$第$v$个分支点的样本数量，则：  
-              $$ P(a=a_v)=/frac{|D_v|}{|D|}$$  
-              $$Ent(D|a=a_v)=Ent(D_v)$$  
-              $$Gain(D|a)=Ent(D)-\sum_{v=1}^{V}\frac{|D_v|}{|D|}Ent(D_v)$$     
-**ID3（Irerative Dichotomiser）算法**以信息增益为准则划分属性，即：
-              $$a_x=arg\underset{max}{a\inA} Gain(D,a)$$
-缺点：信息增益对可取值数目较多的属性有所偏好，易发生过拟合。   
+              $$Gain(D,a)=Ent(D)-Ent(D|a)=Ent(D)-\sum_{v=1}^{V}P(a=a_v)Ent(D|a=a_v)$$   
+$P(a=a_v)$为第v个分支点权重，设$D_v$第$v$个分支点的样本数量，则：   
+              $$ P(a=a_v)=/frac{|D_v|}{|D|}$$   
+              $$Ent(D|a=a_v)=Ent(D_v)$$   
+              $$Gain(D,a)=Ent(D)-\sum_{v=1}^{V}\frac{|D_v|}{|D|}Ent(D_v)$$      
+**ID3（Irerative Dichotomiser）算法**以信息增益为准则划分属性，即： 
+              $$a_x=arg\underset{a \in A}{max} Gain(D,a)$$ 
+缺点：信息增益对可取值数目较多的属性有所偏好，易发生过拟合。    
 
 #### 1.2.2 增益率   
 **C4.5决策树算法**为减少信息增益偏好的影响，使用增益率来选择最优划分属性，增益率定义为：
 $$Gain_ratio(D,a)=\frac{Gain(D,a)}{IV(a)}$$
+其中  
+$$IV(a)=-\sum_{v=1}^{V}/frac{|D_v|}{|D|}log/frac{|D_v|}{|D|}=-\sum_{v=1}^{V}p(a=a_v)logp(a=a_v)$$  
+称为属性$a$的固有属性(intrinstic value),属性$a$的可能取值数目越多，$IV(a)$越大。  
+增益率准则对可取值数目较少的属性有所偏好，因此C4.5算法并不取其最大的候选属性进行划分，而是使用了一个启发式：先从候选划分属性中找出$Gain(D,a)$高于平均水平的属性，再从中选择增益率最高的。  
+
+#### 1.2.3 基尼指数
+数据集D的纯度可用基尼值来度量：  
+$$Gini(D)=\sum_{k=1}^{|\gamma|}\sum_{{k}'^\neq k}p_kp_{k}'=1-\sum_{k=1}^{|\gamma|}p_k^2$$   
+反映了从数据集$D$中随机抽取两个样本，其类别标记不一致的概率，因此基尼值越小，则数据集纯度越高。 
+**CART决策树**使用“基尼指数”（Gini Index）来选择划分属性，则属性$a$的基尼指数定义为：  
+$$Gini_Index(D,a)=\sum_{v=1}^{V}/frac{|D_v|}{|D|}Gini(D_v)  
+选择基尼指数最小的属性作为最优划分属性，即：   
+$$a_x=arg\underset{a \in A}{min} Gini_index(D,a)$$ 
+
  http://www.mohu.org/info/symbols/symbols.htm
