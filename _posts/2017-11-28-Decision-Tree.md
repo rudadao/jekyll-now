@@ -38,7 +38,7 @@ title: 决策树
    3. 步骤11-12：结点中样本为空无法划分，生成一个叶结点，类型为样本D中最多的类（先验分布）
 
 ## 1.2 特征选择（选择最优属性）
-   结点尽可能属于同一类别（结点“纯度”）
+   结点尽可能属于同一类别（结点“纯度”）。
 ### 1.2.1 信息增益
 #### 1.信息熵（Information entropy）  
 信息熵（Information entropy）是度量样本纯度的指标。   
@@ -48,7 +48,8 @@ $$I(x_i)=-logp_i$$
 $$Ent(X)=E[I(x_i)]=-\sum_{i=1}^{N}p_ilogp_i$$  
 信息熵的性质： 
   1. 非负性：$Ent(X)\ge0$  
-  2. 最大离散熵定理： $Ent(X)\leq logN$(当$p_i=1/N$时，熵最大) 
+  2. 最大离散熵定理： $Ent(X)\leq logN$(当$p_i=1/N$时，熵最大)  
+
 #### 2.信息增益   
 样本$D$集合中第$k$类样本所占比例为$p_k(k=1,2,...,|\gamma|)$，则样本$D$的信息熵为：   
               $$Ent(D)=-\sum_{k=1}^{|\gamma|}p_klog p_k$$  
@@ -59,7 +60,7 @@ $$Ent(X)=E[I(x_i)]=-\sum_{i=1}^{N}p_ilogp_i$$
 则信息增益为：  
               $$Gain(D,a)=Ent(D)-Ent(D|a)=Ent(D)-\sum_{v=1}^{V}P(a=a_v)Ent(D|a=a_v)$$   
 $P(a=a_v)$为第v个分支点权重，设$D_v$第$v$个分支点的样本数量，则：   
-              $$ P(a=a_v)=/frac{|D_v|}{|D|}$$   
+              $$ P(a=a_v)=\frac{|D_v|}{|D|}$$   
               $$Ent(D|a=a_v)=Ent(D_v)$$   
               $$Gain(D,a)=Ent(D)-\sum_{v=1}^{V}\frac{|D_v|}{|D|}Ent(D_v)$$      
 **ID3（Irerative Dichotomiser）算法**以信息增益为准则划分属性，即： 
